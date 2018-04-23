@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<link rel="stylesheet" type="text/css" href="{% static 'home/site.css' %}">
+</head>
+<body>
+
+	<div class="hometitle">
+		<h1 align="center">RecordBase</h1>
+	</div>
+	<br>
+	<br>
+		<ul>
+		{% for item in list %}
+        	<li>{{ item }}</li>
+    	{% endfor %}
+    	</ul>
+</body>
+</html>

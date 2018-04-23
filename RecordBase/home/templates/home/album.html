@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Album</title>
+<link href="{% static 'home/site.css' %}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Comfortaa:700|Roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+</head>
+<script>
+	function query_to_URL() {
+		var url = "http://127.0.0.1:8000/home/search_" + document.getElementById("query-type").value + 
+					"=" + document.getElementById("query").value;
+		location.href=url;
+
+		return false;
+	}
+</script>
+</head>
+<body>
+	<div class="banner">
+		<a href="http://127.0.0.1:8000/home">RecordBase <i class="fas fa-music"></i></a>
+		<form class="search" onSubmit="return query_to_URL();">
+			<input required type="text" name="query" id="query" placeholder="Search"><select class="options" id="query-type" name="type">
+				<option value="artist">Artist</option>
+				<option value="album">Album</option></select><button class="fas fa-search fa-lg" id="search_submit" type="submit"></button>
+		</form>
+	</div>
+	<div class="main_body">
+	<h1>{{ info.name }}</h1>
+	<div class="export"><a href="http://127.0.0.1:8887/album_rdf" download><button type="button">Export RDF</button></a></div>
+		<div class="side_bar">
+		<div class="image">
+			<img src="{{ info.image }}">
+		</div>
+		{% if info.genres is not None %}
+			<h4>Genres</h4>
+			<ul>
+			{% for item in info.genres %}
+				<li><a href="http://127.0.0.1:8000/home/genre/{{ item.1 }}">{{ item.0 }}</a></li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+		{% if info.date %}
+			<p><b>Released:</b> {{ info.date }}</p>
+		{% endif %}
+		{% if info.award %}
+		<h4>BPI Certifications</h4>
+			<ul>
+				{% for item in info.award %}
+					<li>{{ item }}</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+			{% if info.review %}
+			<a href="{{ info.review }}">BBC Music review</a>
+			{% endif %}
+
+		</div>
+		<div class="description">
+			<p>{{ info.description }}</p>
+		</div>
+
+		
+
+		<div class="albums">
+		{% if info.producers %}
+			{% if info.producers|length is 1 %}
+				<h2>Producer</h2>
+			{% else %}
+				<h2>Producers</h2>
+			{% endif %}
+		{% endif %}
+			<ul>
+				{% for item in info.producers %}
+					<li>{{ item }}</li>
+				{% endfor %}
+			</ul>
+
+		<div class="tracklist">
+			<h2>Tracklist</h2>
+			<ol>
+				{% for track in info.tracklist %}
+				<li>{{ track }}</li>
+				{% endfor %}
+			</ol>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Genre</title>
+<link href="{% static 'home/site.css' %}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Comfortaa:700|Roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+<script>
+	function query_to_URL() {
+		var url="http://127.0.0.1:8000/home/search=" + document.getElementById("url").value;
+		location.href=url;
+
+		return false;
+	}
+</script>
+</head>
+<body>
+<div class="main_body">
+	<div class="banner">
+		<a href="http://127.0.0.1:8000/home">RecordBase <i class="fas fa-music"></i></a>
+		<form class="search" onSubmit="return query_to_URL();">
+			<input required type="text" name="query" id="query" placeholder="Search"><select class="options" id="query-type" name="type">
+				<option value="artist">Artist</option>
+				<option value="album">Album</option></select><button class="fas fa-search fa-lg" id="search_submit" type="submit"></button>
+		</form>
+	</div>
+
+		<div>
+			<h1>{{ info.name }}</h1>
+		</div>
+
+		<div class="side_bar">
+			{% if info.sub_genres %}
+			<h4>Sub Genres</h4>
+			<ul>
+			{% for item in info.sub_genres %}
+				<li>{{ item }}</li>
+			{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+
+		<div class="description">
+			<p>{{ info.description }}</p>
+		</div>
+	</div>
+</body>
+</html>

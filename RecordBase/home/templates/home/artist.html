@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Artist</title>
+<link href="{% static 'home/site.css' %}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Comfortaa:700|Roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+<script>
+	function query_to_URL() {
+		var url = "http://127.0.0.1:8000/home/search_" + document.getElementById("query-type").value + 
+					"=" + document.getElementById("query").value;
+		location.href=url;
+
+		return false;
+	}
+</script>
+</head>
+<body>
+	<div class="banner">
+		<a href="http://127.0.0.1:8000/home">RecordBase <i class="fas fa-music"></i></a>
+		<form class="search" onSubmit="return query_to_URL();">
+			<input required type="text" name="query" id="query" placeholder="Search"><select class="options" id="query-type" name="type">
+				<option value="artist">Artist</option>
+				<option value="album">Album</option></select><button class="fas fa-search fa-lg" id="search_submit" type="submit"></button>
+		</form>
+	</div>
+	<div class="main_body">
+	<h1>{{ info.name }}</h1>
+	<div class="export"><a href="http://127.0.0.1:8887/artist_rdf" download><button type="button">Export RDF</button></a></div>
+		<div class="side_bar">
+			<img src="{{ info.image }}" alt="artist image">
+			{% if info.genres %}
+			<h4>Tags</h4>
+				<ul>
+					{% for item in info.genres %}
+						<li><a href="http://127.0.0.1:8000/home/genre/{{ item.1 }}">{{ item.0 }}</a></li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+			{% if info.hometown is not None %}
+			<p><b>Originated:</b> {{ info.hometown }}</p>
+			{% endif %}
+			{% if info.current_members %}
+			<h4>Band Members</h4>
+			{% elif info.past_members %}
+			<h4>Former members</h4>
+			{% endif %}		
+				<ul>
+					{% for item in info.current_members %}
+						<li>{{ item }}</li>
+					{% endfor %}
+					{% for item in info.past_members %}
+						<li>{{ item }}</li>
+					{% endfor %}
+				</ul>
+		</div>
+
+		<div class="description">
+			<p>{{ info.description }}</p>
+		</div>
+				
+		<div class="albums">
+			<h2>Albums</h2>
+			<ul>
+			{% for item in info.albums %}
+				<li><a href="http://127.0.0.1:8000/home/album/{{ item.id }}">{{ item.title }}</a>  -  {{ item.date|slice:":4" }}</li>
+			{% endfor %}
+			</ul>
+		</div>
+
+		<div class="links">
+		{% if info.links %}
+			<h2>Links</h2>
+			<table>
+					<tr>
+					{% for key, value in info.links.items %}
+						<th><i class="{{ value.icon }} fa-2x"></i></th>   				
+    				{% endfor %}
+    				</tr>
+    				<tr>
+    				{% for key, value in info.links.items %}			
+    					<td><a href="{{ value.url }}"> {{ key }}</a></td>
+					{% endfor %}
+					</tr>
+			</table>
+		{% endif %}
+		</div>
+	</div>
+</body>
+</html>

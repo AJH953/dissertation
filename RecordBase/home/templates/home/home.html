@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Home</title>
+<link href="{% static 'home/site.css' %}" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Comfortaa:700|Roboto" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+</head>
+<body>
+	<div class="home_banner">
+		<h1>RecordBase <i class="fas fa-music"></i></h1>
+	</div>
+
+	<div class="home_search">
+		<script>
+			function query_to_URL() {
+				var url="http://127.0.0.1:8000/home/search_" + document.getElementById("query-type").value + "=" + document.getElementById("query").value;
+				location.href=url;
+
+				return false;
+			}
+		</script>
+		<form class="search" onSubmit="return query_to_URL();">
+			<input required type="text" name="query" id="query" placeholder="Search"><select class="options" id="query-type" name="type">
+				<option value="artist">Artist</option>
+				<option value="album">Album</option></select><button class="fas fa-search fa-lg" id="search_submit" type="submit"></button>
+		</form>
+	</div>
+</div>
+	<div class="home_results">
+		<ul>
+		{% for item in artist_list %}
+			<li><a href="http://127.0.0.1:8000/home/artist/{{ item.1 }}">{{ item.0 }}</a>{% if item.2 is not None %}	- {{ item.2 }}{% endif %}</li>
+		{% endfor %}
+		</ul>
+		<ul>
+		{% for item in album_list %}
+			<li><a href="http://127.0.0.1:8000/home/album/{{ item.1 }}">{{ item.0 }}</a> - {{ item.2 }}</li>
+		{% endfor %}
+		</ul>
+	</div>
+
+</body>
+</html>

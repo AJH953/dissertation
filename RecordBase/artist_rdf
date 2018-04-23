@@ -1,0 +1,63 @@
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix dbp: <http://dbpedia.org/property/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/#> .
+@prefix mo: <http://purl.org/ontology/mo#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://musicbrainz.org/release-group/09a432f4-16a9-33c1-bf93-359493642373> rdfs:label "Quiero verano" ;
+    dc:date "1999" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/283ac9c9-d459-4947-9e0f-6b0c3ddcaa56> rdfs:label "Versiones y rarezas para Norbert & Cali" ;
+    dc:date "2010-05-01" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/6ff37091-f188-47c3-8f51-0f8262cdbf04> rdfs:label "Gotham te necesita" ;
+    dc:date "2015-04-27" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/9c57c12c-0b60-35b8-bc15-67cb3cb729c8> rdfs:label "¿Quién mató a Airbag?" ;
+    dc:date "2005-04" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/afd806c3-cedd-4c68-93f4-03d6cbceb9df> rdfs:label "Manual de Montaña Rusa" ;
+    dc:date "2011" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/b877eb73-f424-3261-812c-5337b1fc156b> rdfs:label "Alto Disco" ;
+    dc:date "2008-02-04" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/bb757cdb-87ef-4854-b8c8-1ca7ea5d6b35> rdfs:label "Buscando la Ola Perfecta - Directo en la Sala Heineken" ;
+    dc:date "2014-12-11" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/d3947e0c-16fa-307f-b47d-0a1b8f1ceb2f> rdfs:label "Ensamble cohetes" ;
+    dc:date "2003" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/release-group/e2c10424-d022-32f6-84f1-d9fffdda1797> rdfs:label "Mondo cretino" ;
+    dc:date "2000-06" ;
+    rdfs:type mo:Record ;
+    foaf:maker <https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> .
+
+<https://musicbrainz.org/artist/fa8ec1e9-6020-4478-b939-cf5c80fec696> rdfs:label "Airbag" ;
+    rdfs:type mo:MusicArtist ;
+    owl:sameAs <http://dbpedia.org/resource/Airbag_(band)>,
+        <https://www.bbc.co.uk/music/artists/fa8ec1e9-6020-4478-b939-cf5c80fec696> ;
+    foaf:homepage <http://www.mondoairbag.com/> ;
+    foaf:name "Airbag" .
+
