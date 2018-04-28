@@ -289,10 +289,14 @@ def create_RDF(info,artist):
 
 		literal_triples = [ (artist_uri, rdfs.label, Literal(info.get('name'))),
 							(artist_uri, foaf.name, Literal(info.get('name'))) ]
-
-		uri_triples = [ (artist_uri, owl.sameAs, URIRef(info.get('dbpedia_ID'))),
-						(artist_uri, owl.sameAs, URIRef("https://www.bbc.co.uk/music/artists/" + info.get('MBID'))),
-						(artist_uri, foaf.homepage, URIRef(info['links']['Homepage']['url'])) ]
+							
+		if 'Homepage' in info['links']:
+			uri_triples = [ (artist_uri, owl.sameAs, URIRef(info.get('dbpedia_ID'))),
+							(artist_uri, owl.sameAs, URIRef("https://www.bbc.co.uk/music/artists/" + info.get('MBID'))),
+							(artist_uri, foaf.homepage, URIRef(info['links']['Homepage']['url'])) ]
+		else:
+			uri_triples = [ (artist_uri, owl.sameAs, URIRef(info.get('dbpedia_ID'))),
+							(artist_uri, owl.sameAs, URIRef("https://www.bbc.co.uk/music/artists/" + info.get('MBID'))) ]
 
 		for item in standard_triples:
 			g.add( (item[0], item[1], item[2]) )
@@ -403,9 +407,9 @@ def artist_page(request,MBID):
 	artist_info['albums'] = get_albums(data['artist'],artist_info['name'])
 	artist_info['image'] = get_artist_image(artist_info['dbpedia_ID'])
 	
-	#rdf = create_RDF(artist_info)
-	#artist_info['artist_rdf'] = rdf
-	create_RDF(artist_info,True)
+	rdf = create_RDF(artist_info,True)
+	artist_info['artist_rdf'] = rdf
+	#create_RDF(artist_info,True)
 
 	return render(request, 'home/artist.html', {'info': artist_info})
 
