@@ -247,25 +247,29 @@ def get_albums(data,artist):
 	#singles = []
 	#EPs = []
 	for item in data['release-group-list']:
-		if item['type'] == 'Album':
-			album_details = {}
-			album_details['id'] = item['id']
-			album_details['title'] = item['title']
-#			album_details['description'] = get_description(item['title'])
+		try:
+			if item['type'] == 'Album':
+				album_details = {}
+				album_details['id'] = item['id']
+				album_details['title'] = item['title']
+	#			album_details['description'] = get_description(item['title'])
 
-			#if album_details['description'] == "":
-				#album_details['description'] = get_description(item['title'] + "_(%s_album)" % (artist))
-				#album_details['producer'] = get_producers(item['title'] + "_(%s_album)" % (artist))
-			#elif album_details['description'] == "":
-				#album_details['description'] = get_description(item['title'] + "_(album)")
-				#album_details['producer'] = get_producers(item['title'] + "_(album)")
-			#elif album_details['description'] == "":
-				#album_details['description'] = get_description(item['title'])
-				#album_details['producer'] = get_producers(item['title'])
+				#if album_details['description'] == "":
+					#album_details['description'] = get_description(item['title'] + "_(%s_album)" % (artist))
+					#album_details['producer'] = get_producers(item['title'] + "_(%s_album)" % (artist))
+				#elif album_details['description'] == "":
+					#album_details['description'] = get_description(item['title'] + "_(album)")
+					#album_details['producer'] = get_producers(item['title'] + "_(album)")
+				#elif album_details['description'] == "":
+					#album_details['description'] = get_description(item['title'])
+					#album_details['producer'] = get_producers(item['title'])
 
-			album_details['date'] = item['first-release-date']
+				album_details['date'] = item['first-release-date']
 
-			studio_albums.append(album_details)
+				studio_albums.append(album_details)
+
+		except KeyError:
+			pass
 
 	return sorted(studio_albums, key=lambda x: (x['date']), reverse=True)
 
