@@ -61,12 +61,14 @@
 		</div>
 				
 		<div class="albums">
+		{% if info.albums %}
 			<h2>Albums</h2>
 			<ul>
 			{% for item in info.albums %}
 				<li><a href="http://127.0.0.1:8000/home/album/{{ item.id }}">{{ item.title }}</a>  -  {{ item.date|slice:":4" }}</li>
 			{% endfor %}
 			</ul>
+		{% endif %}
 		</div>
 
 		<div class="links">
