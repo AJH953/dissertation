@@ -289,14 +289,17 @@ def create_RDF(info,artist):
 
 		literal_triples = [ (artist_uri, rdfs.label, Literal(info.get('name'))),
 							(artist_uri, foaf.name, Literal(info.get('name'))) ]
-							
+
+		uri_triples = [(artist_uri, owl.sameAs, URIRef("https://www.bbc.co.uk/music/artists/" + info.get('MBID')))]
+
+		if 'dbpedia_ID' in info:
+			try:
+				uri_triples.append((artist_uri, owl.sameAs, URIRef(info.get('dbpedia_ID'))))
+			except TypeError:
+				pass
+
 		if 'Homepage' in info['links']:
-			uri_triples = [ (artist_uri, owl.sameAs, URIRef(info.get('dbpedia_ID'))),
-							(artist_uri, owl.sameAs, URIRef("https://www.bbc.co.uk/music/artists/" + info.get('MBID'))),
-							(artist_uri, foaf.homepage, URIRef(info['links']['Homepage']['url'])) ]
-		else:
-			uri_triples = [ (artist_uri, owl.sameAs, URIRef(info.get('dbpedia_ID'))),
-							(artist_uri, owl.sameAs, URIRef("https://www.bbc.co.uk/music/artists/" + info.get('MBID'))) ]
+			uri_triples.append((artist_uri, foaf.homepage, URIRef(info['links']['Homepage']['url'])))
 
 		for item in standard_triples:
 			g.add( (item[0], item[1], item[2]) )
@@ -309,11 +312,13 @@ def create_RDF(info,artist):
 				g.add( (item[0], item[1], URIRef(item[2])) )
 			except TypeError:
 				pass
-			
-		for person in info['current_members']:
-			g.add( (artist_uri, dbp.bandMember, Literal(person)) )
-		for person in info['past_members']:
-			g.add( (artist_uri, dbp.formerBandMember, Literal(person)) )
+		try:	
+			for person in info['current_members']:
+				g.add( (artist_uri, dbp.bandMember, Literal(person)) )
+			for person in info['past_members']:
+				g.add( (artist_uri, dbp.formerBandMember, Literal(person)) )
+		except TypeError:
+			pass
 
 		# Triples concerning albums made by the artist
 		for album in info['albums']:
