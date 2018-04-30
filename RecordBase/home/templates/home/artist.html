@@ -25,7 +25,7 @@
 				<option value="album">Album</option></select><button class="fas fa-search fa-lg" id="search_submit" type="submit"></button>
 		</form>
 	</div>
-	<div class="main_body">
+	<div vocab="http://purl.org/ontology/mo/" typeof="MusicArtist" class="main_body">
 	<h1>{{ info.name }}</h1>
 	<div class="export"><a href="http://127.0.0.1:8887/artist_rdf" download><button type="button">Export RDF</button></a></div>
 		<div class="side_bar">
@@ -39,7 +39,7 @@
 				</ul>
 			{% endif %}
 			{% if info.hometown is not None %}
-			<p><b>Originated:</b> {{ info.hometown }}</p>
+			<p property="origin"><b>Originated:</b> {{ info.hometown }}</p>
 			{% endif %}
 			{% if info.current_members %}
 			<h4>Band Members</h4>
@@ -56,7 +56,7 @@
 				</ul>
 		</div>
 
-		<div class="description">
+		<div property="biography" class="description">
 			<p>{{ info.description }}</p>
 		</div>
 				

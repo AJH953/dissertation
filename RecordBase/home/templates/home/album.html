@@ -26,14 +26,14 @@
 				<option value="album">Album</option></select><button class="fas fa-search fa-lg" id="search_submit" type="submit"></button>
 		</form>
 	</div>
-	<div class="main_body">
+	<div vocab="http://purl.org/ontology/mo/" typeof="Record" class="main_body">
 	<h1>{{ info.name }}</h1>
 	<div class="export"><a href="http://127.0.0.1:8887/album_rdf" download><button type="button">Export RDF</button></a></div>
 		<div class="side_bar">
 		<div class="image">
 			<img src="{{ info.image }}">
 		</div>
-		{% if info.genres is not None %}
+		{% if info.genres %}
 			<h4>Genres</h4>
 			<ul>
 			{% for item in info.genres %}
@@ -73,7 +73,7 @@
 		{% endif %}
 			<ul>
 				{% for item in info.producers %}
-					<li>{{ item }}</li>
+					<li property="producer">{{ item }}</li>
 				{% endfor %}
 			</ul>
 
@@ -81,7 +81,7 @@
 			<h2>Tracklist</h2>
 			<ol>
 				{% for track in info.tracklist %}
-				<li>{{ track }}</li>
+				<li property="track">{{ track }}</li>
 				{% endfor %}
 			</ol>
 		</div>
