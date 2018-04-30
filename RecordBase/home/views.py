@@ -411,8 +411,17 @@ def artist_page(request,MBID):
 	else:
 		artist_info['current_members'] = get_band_members(artist_info['dbpedia_ID'])[0]
 		artist_info['past_members'] = get_band_members(artist_info['dbpedia_ID'])[1]
+		artist_info['genres'] = get_dbpedia_genres(artist_info['dbpedia_ID'])
 
-	artist_info['genres'] = get_tags(data['artist'])
+	if get_tags(data['artist']) is not None:
+		genres = []
+		for item in artist_info['genres']:
+			genres.append(item[0].lower())
+
+		for item in get_tags(data['artist']):
+			if item[0].lower() not in genres:
+				artist_info['genres'].append(item)
+
 	artist_info['links'] = get_links(data['artist'])
 	artist_info['hometown'] = get_location(data['artist'])
 	artist_info['albums'] = get_albums(data['artist'],artist_info['name'])
