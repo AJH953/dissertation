@@ -110,22 +110,24 @@ def get_dbpedia_genres(resource):
 	global dbpedia
 	global prefixes
 	genres = []
+	relationships = ['dbo:genre','dbp:genre']
 
-	dbpedia.setQuery("""
-		%s
+	for item in relationships:
+		dbpedia.setQuery("""
+			%s
 
-		SELECT ?label WHERE {
-		<%s> dbo:genre ?genre.
-		?genre rdfs:label ?label.
-		filter langMatches(lang(?label),"en") }
+			SELECT ?label WHERE {
+			<%s> %s ?genre.
+			?genre rdfs:label ?label.
+			filter langMatches(lang(?label),"en") }
 
-	""" % (prefixes,resource)	)
+		""" % (prefixes,resource,item)	)
 
-	dbpedia.setReturnFormat(JSON)
-	results = dbpedia.query().convert()
+		dbpedia.setReturnFormat(JSON)
+		results = dbpedia.query().convert()
 
-	for result in results["results"]["bindings"]:
-		genres.append([result["label"]["value"].title(),result["label"]["value"].replace(" ","_")])
+		for result in results["results"]["bindings"]:
+			genres.append([result["label"]["value"].title(),result["label"]["value"].replace(" ","_")])
 
 	return genres
 
@@ -451,22 +453,24 @@ def album_page(request,MBID):
 		global dbpedia
 		global prefixes
 		labels = []
+		relationships = ['dbo:producer','dbp:producer']
 
-		dbpedia.setQuery("""
-			%s
+		for item in relationships:
+			dbpedia.setQuery("""
+				%s
 
-			SELECT ?label WHERE {
-			<%s> dbo:producer ?producer.
-			?producer rdfs:label ?label.
-			filter langMatches(lang(?label),"en") }
+				SELECT ?label WHERE {
+				<%s> %s ?producer.
+				?producer rdfs:label ?label.
+				filter langMatches(lang(?label),"en") }
 
-		""" % (prefixes,album) )
+			""" % (prefixes,album,item) )
 
-		dbpedia.setReturnFormat(JSON)
-		results = dbpedia.query().convert()
+			dbpedia.setReturnFormat(JSON)
+			results = dbpedia.query().convert()
 
-		for result in results["results"]["bindings"]:
-			labels.append(result["label"]["value"])
+			for result in results["results"]["bindings"]:
+				labels.append(result["label"]["value"])
 
 		return labels
 
